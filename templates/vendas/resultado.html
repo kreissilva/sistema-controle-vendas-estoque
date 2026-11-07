@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultado da venda{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card p-4">
+            <h2 class="mb-3">✅ Venda confirmada</h2>
+            <p><strong>Produto:</strong> {{ produto.nome }}</p>
+            <p><strong>Valor total:</strong> R$ {{ venda.valor_total }}</p>
+            <p><strong>Quantidade vendida:</strong> {{ item.quantidade }} unidades</p>
+            <p><strong>Estoque restante:</strong> {{ estoque_restante }} unidades</p>
+            {% if produto.estoque_baixo %}
+                <div class="alert alert-warning">
+                    <strong>Estoque baixo!</strong> Restam apenas {{ produto.quantidade_estoque }} unidades.
+                </div>
+            {% endif %}
+            <div class="d-flex gap-2 mt-4">
+                <a class="btn btn-success" href="{% url 'vendas:nova_venda' %}">Nova Venda</a>
+                <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Voltar ao início</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card summary-card p-3">
+            <div class="text-muted">Produtos cadastrados</div>
+            <h3 class="mt-2 mb-0">{{ total_produtos }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card summary-card p-3">
+            <div class="text-muted">Produtos com estoque baixo</div>
+            <h3 class="mt-2 mb-0">{{ produtos_baixo }}</h3>
+        </div>
+    </div>
+    <div class="col-md-6 d-grid align-items-stretch">
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary btn-lg" href="{% url 'produtos:cadastrar_produto' %}">Cadastrar produto</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'produtos:lista_produtos' %}">Consulta de estoque</a>
+            <a class="btn btn-success btn-lg" href="{% url 'vendas:nova_venda' %}">Nova Venda</a>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4">
+    <h4 class="mb-3">⚠️ Alertas de estoque</h4>
+    {% if produtos_alerta %}
+        <ul class="mb-0">
+            {% for produto in produtos_alerta %}
+                <li>
+                    <strong>Estoque baixo!</strong> Restam apenas {{ produto.quantidade_estoque }} unidades de {{ produto.nome }}.
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="mb-0 text-muted">Nenhum produto está com estoque baixo no momento.</p>
+    {% endif %}
+</div>
+{% endblock %}
