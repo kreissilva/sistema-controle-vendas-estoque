@@ -12,6 +12,7 @@ venv/
 db.sqlite3
 .env
 .env.*
+!.env.example
 
 # IDE/editor
 .vscode/
