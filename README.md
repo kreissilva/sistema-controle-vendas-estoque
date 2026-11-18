@@ -143,6 +143,6 @@ O workflow em `.github/workflows/ci.yml` executa:
 
 A documentação de validação do projeto está em `docs/validacao-comunidade.md` e foi preparada com roteiro, critérios e checklist, sem inventar participantes ou resultados reais de teste.
 
-## Publicação final
+## Deploy e monitoramento
 
-O código está pronto para publicação em um repositório público no GitHub, mas a etapa final depende de autenticação e autorização do usuário para criar o repositório e configurar o remote.
+O deploy de demonstração está preparado para o Render por meio do Blueprint `render.yaml`. As instruções de configuração, validação e monitoramento externo estão em [`docs/deploy-monitoramento.md`](docs/deploy-monitoramento.md). A publicação efetiva exige conectar este repositório a uma conta Render.

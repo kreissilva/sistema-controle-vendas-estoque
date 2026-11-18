@@ -1,10 +1,28 @@
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.db.utils import OperationalError
 from django.test import TestCase
+from django.urls import reverse
 
 from produtos.models import Produto
+
+
+class HealthCheckTestCase(TestCase):
+    def test_retorna_ok_quando_banco_esta_disponivel(self):
+        response = self.client.get(reverse('health_check'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {'status': 'ok'})
+
+    @patch('config.views.connection.cursor', side_effect=OperationalError)
+    def test_retorna_indisponivel_quando_banco_falha(self, mock_cursor):
+        response = self.client.get(reverse('health_check'))
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json(), {'status': 'unavailable'})
 
 
 class ProdutoModelTestCase(TestCase):
